@@ -1,0 +1,29 @@
+version: '3'
+services:
+
+  nodejs-app:
+    container_name: nodejs-app
+    build:
+      context: ./app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      - redis
+
+  # MongoDB
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example-password
+
+  # Redis
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
